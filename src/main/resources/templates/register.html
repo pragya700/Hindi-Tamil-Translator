@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register - Hindi-Tamil Language Translation Application</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-page">
+<main class="auth-card">
+    <div class="logo">अ→அ</div>
+    <h1>Create your account</h1>
+    <p class="subtitle">Register to use the Hindi-Tamil Language Translation Application</p>
+
+    <div class="alert error" th:if="${#fields.hasErrors('${form.*}')}">
+        Please correct the errors below.
+    </div>
+
+    <form th:action="@{/register}" th:object="${form}" method="post" novalidate>
+
+        <label for="vitId">VIT ID / Student ID</label>
+        <input type="text" id="vitId" th:field="*{vitId}" placeholder="e.g. 24MCA0001">
+        <span class="field-error" th:if="${#fields.hasErrors('vitId')}" th:errors="*{vitId}"></span>
+
+        <label for="name">Full name</label>
+        <input type="text" id="name" th:field="*{name}" placeholder="Your full name">
+        <span class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+
+        <label for="email">Email address</label>
+        <input type="email" id="email" th:field="*{email}" placeholder="you@example.com">
+        <span class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" th:field="*{password}" placeholder="At least 8 characters">
+        <span class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+
+        <label for="confirmPassword">Confirm password</label>
+        <input type="password" id="confirmPassword" th:field="*{confirmPassword}" placeholder="Re-enter your password">
+        <span class="field-error" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></span>
+
+        <button type="submit" class="btn primary full">Register</button>
+    </form>
+
+    <p class="switch-link">Already have an account? <a th:href="@{/login}">Login</a></p>
+</main>
+</body>
+</html>

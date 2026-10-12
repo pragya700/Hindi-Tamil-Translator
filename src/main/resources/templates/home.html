@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSRF token: the JavaScript sends it with every POST request -->
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <title>Hindi–Tamil Language Translator</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="brand"><span class="logo small">अ⇄அ</span> Hindi–Tamil Translator</div>
+    <div class="nav-right">
+        <span class="welcome">Welcome, <strong th:text="${userName}">User</strong></span>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn outline">Logout</button>
+        </form>
+    </div>
+</nav>
+
+<main class="container">
+    <h1>Hindi–Tamil Language Translator</h1>
+    <p class="subtitle">Translate between Hindi and Tamil, in either direction.</p>
+
+    <div class="alert info">
+        <strong>Demo mode:</strong> this uses small built-in dictionaries (Hindi → Tamil and
+        Tamil → Hindi). It is a basic demonstration, not a full machine translation system, so
+        only known words and phrases are translated. Unknown words stay unchanged.
+    </div>
+
+    <div id="message" class="alert hidden" role="alert"></div>
+
+    <!-- Language direction: From [Hindi] ⇄ To [Tamil] -->
+    <div class="direction-bar">
+        <div class="direction-field">
+            <label for="sourceLang">From</label>
+            <select id="sourceLang">
+                <option value="hi" selected>Hindi</option>
+                <option value="ta">Tamil</option>
+            </select>
+        </div>
+
+        <button type="button" id="swapBtn" class="btn outline swap-btn"
+                title="Swap languages" aria-label="Swap languages">⇄ Swap</button>
+
+        <div class="direction-field">
+            <label for="targetLang">To</label>
+            <select id="targetLang">
+                <option value="hi">Hindi</option>
+                <option value="ta" selected>Tamil</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="examples">
+        <span>Try an example:</span>
+        <span id="exampleList" class="example-list"></span>
+    </div>
+
+    <div class="panels">
+        <section class="panel">
+            <h2 id="inputHeading">Hindi Input</h2>
+            <textarea id="hindiInput" lang="hi" rows="10" maxlength="5000"
+                      placeholder="Enter Hindi text here (यहाँ हिंदी टेक्स्ट लिखें...)"></textarea>
+            <div class="button-row">
+                <button type="button" id="translateBtn" class="btn primary">Translate</button>
+                <button type="button" id="clearBtn" class="btn outline">Clear</button>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2 id="outputHeading">Tamil Translation</h2>
+            <div id="tamilOutput" class="output-box placeholder" lang="ta">
+                Tamil translation will appear here...
+            </div>
+            <div id="unknownInfo" class="small-note hidden"></div>
+            <div class="button-row">
+                <button type="button" id="copyBtn" class="btn secondary">Copy Translation</button>
+                <span id="loading" class="loading hidden"><span class="spinner"></span> Translating...</span>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script th:src="@{/js/translator.js}"></script>
+</body>
+</html>
